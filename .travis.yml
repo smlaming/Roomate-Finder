@@ -8,7 +8,7 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: 
+    secure: "YOUR ENCRYPTED API KEY"
   app: roommate-finder-a-22
   on:
     repo: uva-cs3240-s21/project-a-22
