@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'django.contrib.sites',
     'roommatefinder',
-
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
