@@ -1,0 +1,14 @@
+language: python
+python:
+- '3.9'
+install:
+- pip install -r requirements-travis.txt
+script:
+- python manage.py test
+deploy:
+  provider: heroku
+  api_key:
+    secure: "YOUR ENCRYPTED API KEY"
+  app: roommate-finder-a-22
+  on:
+    repo: uva-cs3240-s21/project-a-22
