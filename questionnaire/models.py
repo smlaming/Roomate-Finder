@@ -28,7 +28,15 @@ class PersonalityForm(forms.Form):
 class Question(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    year = models.CharField(max_length=50, choices=(('1', '1st'), ('2', '2nd'), ('3', '3rd'), ('4', '4th')), default='1st')
+    year = models.CharField(max_length=50, choices=(('1', '1st'), ('2', '2nd'), ('3', '3rd'), ('4', '4th')))
+    wake_up = models.CharField(max_length=200, choices=(('1', 'Before 7am'), ('2', '7am-8:30am'), ('3', '8:30am-10am'), ('4', '10am-11:30am'), ('5', 'After 11:30am')), default='Before 7am')
+    go_to_bed = models.CharField(max_length=200, choices=(('1', 'Before 9pm'), ('2', '9pm-10:30pm'), ('3', '10:30pm-12:00am'), ('4', '12:00am-1:30am'), ('5', 'After 1:30am')), default='Before 9pm')
+    how_clean = models.CharField(max_length=200, choices=(('1', 'Very Clean'), ('2', 'Kinda Clean'), ('3', 'Kinda Messy'), ('4', 'Very Messy')), default='Very Clean')
+    guests = models.CharField(max_length=200, choices=(('1', 'Always love to have guests over'), ('2', 'Usually love to have guests over'), ('3', 'Sometimes love to have guests over'), ('4', 'Never love to have guests over')), default='Always love to have guests over')
+    more_introverted_or_extroverted = models.CharField(max_length=200, choices=(('1', 'Introverted'), ('2', 'Extroverted'), ('3', 'In the middle')), default='Introverted')
+    ideal_rent = models.PositiveBigIntegerField(default=0)
+    # profile_pic = models.ImageField(upload_to=...)
+
 
     def __str__(self):
         return self.name
