@@ -1,5 +1,6 @@
 from django import forms
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 '''
@@ -26,6 +27,7 @@ class PersonalityForm(forms.Form):
 '''
 
 class Question(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     year = models.CharField(max_length=50, choices=(('1', '1st'), ('2', '2nd'), ('3', '3rd'), ('4', '4th')))
