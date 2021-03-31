@@ -8,7 +8,7 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: "YOUR ENCRYPTED API KEY"
+    secure: Xahu/SNsgBle+ZAnzKyZ8NooV4gh0OsNHgoPMSOIpeam9xlfpchQRYxArHJw0DDt/7jwiNJ1AzihUSMB87hqK7HrDziHcWESCY7hGe3w5y7AXZBhCJKbl4AQhsatXuZs4TBVpCoThP36/Fntrn834kMjzTBez0AvYxZbYc0PPJSgNaf/xZKriAJszQQhJrQDOhY5fjfZPsV0zOnbrQao+xWor5Vr7WjozCMoLLWKegjIkBKcX5Rb+ZabjUfeAPvYOGSbGsREcfh9nyq/miD5ZW/8dhjlkGIdjQ82lNdVl9J/yijS+jolzureD+Lo6B8Jq3o7b87wjdDxEleVmKIa/h+vqzRALWrA/VBzvxUV6H5jE6aWGMOd8/Ih15CR2QkofozAZ3B3bD8qi8lfTJGju9+F1JDK7TRKu/r153KS50LMowBNYy8uN2eYTh5UZR1hN6sgGcACJYzZFSX3pKZsRLxTnnjYp+7Y9W3C4MmpkRczDEG6eIZANt7ZkrZKP8eOzIoqUeeQn7txXBRRnyUFMjHBQ5Y5wiDvi6ySSrcV9ntVzFi/P06ke8Ao2FAu3vYXPwGnw/TPubNmKMOlLhLDo0XWx5ss0E7L7bmHnlWdkYosU0+wON/JBcsx8DlIslBFWhIH6VBCW+wgzPryRtIbmCbWoxeWG8WQwUqfUHYUVdA=
   app: roommate-finder-a-22
-  on:
+  true:
     repo: uva-cs3240-s21/project-a-22
