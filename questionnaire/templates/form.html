@@ -2,14 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Questionnaire</title>
+    <h2>Roommate Questionnaire</h2>
 </head>
 <body>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit!</button>
-</form>
 
+
+</form>
 </body>
 </html>

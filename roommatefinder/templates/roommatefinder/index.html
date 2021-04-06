@@ -6,10 +6,21 @@
   <body>
   <h1>Welcome to the Roommate Finder App!</h1>
   {% if user.is_authenticated %}
-  <p>Welcome, {{ user.username }} !</p>
- 
+  <p>Welcome Back, {{ user.username }}!</p>
+  <a href="{% url 'questionnaire:form' %}">Roommate Questionnaire</a>
+
+  <br>
+  <br>
+
+  <a href="{% url 'questionnaire:profile' user.username %}">Your Profile</a>
+
+<br>
+<br>
+
+   <a href="{% url 'questionnaire:answers' %}">Your Results</a>
+
+
   {% else %}
-  <h1>Welcome to the Roommate Finder App!</h1>
   <a href="{% provider_login_url 'google' %}">Login with Google</a>
   {% endif %}
 

@@ -6,6 +6,8 @@
 </head>
 <body>
 <h1>Questionnaire</h1>
+	<p>Welcome, {{ user.username }} !</p>
+
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
