@@ -25,10 +25,9 @@ class PersonalityForm(forms.Form):
     #year = forms.MultipleChoiceField(label="Year: ", choices=(('1', '1st'), ('2','2nd'), ('3','3rd'), ('4', '4th')))
 
 '''
-username = User.get_username(User)
 
 class Question(models.Model):
-    user = models.OneToOneField(User, null =True, on_delete=models.CASCADE, default=username)
+    user = models.OneToOneField(User, null =True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     year = models.CharField(max_length=50, choices=(('1', '1st'), ('2', '2nd'), ('3', '3rd'), ('4', '4th')))
