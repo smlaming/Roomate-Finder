@@ -5,6 +5,14 @@
     <title>Questionnaire Results</title>
     <h3> The Results Page </h3>
     	<p>{{ user.username }}, these are your matches.</p>
-
+    {% if matches %}
+        <ul>
+            {% for us in matches %}
+            <li>{{ us.name }}, {{us.email}}<li>
+            {% endfor %}
+        </ul>
+    {% else %}
+    <p>No matches available at this time.</p>
+    {% endif %}
 </head>
 </html>
