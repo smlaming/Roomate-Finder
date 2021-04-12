@@ -85,13 +85,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': 'stephenlaming',
+        'NAME': 'd1rgh00vmo1i24',
 
-        'USER': 'stephenlaming',
+        'USER': 'uoszgxtubbrxrt',
 
-        'PASSWORD': '',
+        'PASSWORD': 'bd578c0b6ca6d2462219a42e2ab66d2884755fe570d633be21f0db641d77fc0d',
 
-        'HOST': 'localhost',
+        'HOST': 'ec2-3-222-11-129.compute-1.amazonaws.com',
 
         'PORT': '5432',
     }
