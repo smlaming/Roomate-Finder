@@ -27,7 +27,7 @@ class PersonalityForm(forms.Form):
 '''
 
 class Question(models.Model):
-    user = models.OneToOneField(User, null =True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null =True, on_delete=models.CASCADE, blank=True)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     year = models.CharField(max_length=50, choices=(('1', '1st'), ('2', '2nd'), ('3', '3rd'), ('4', '4th')))
@@ -39,6 +39,8 @@ class Question(models.Model):
     ideal_rent = models.PositiveBigIntegerField()
     # profile_pic = models.ImageField(upload_to=...)
 
-
     def __str__(self):
-        return self.name
+        return str(self.user)
+
+    def get_user(self):
+        return self.user
