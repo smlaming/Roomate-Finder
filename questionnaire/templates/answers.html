@@ -1,18 +1,42 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Questionnaire Results</title>
-    <h3> The Results Page </h3>
+    <h3 class="font-weight-bold"> The Results Page </h3>
     	<p>{{ user.username }}, these are your matches.</p>
     {% if matches %}
+    <!-- https://bbbootstrap.com/snippets/bootstrap-social-media-feed-template-73037768 -->
         <ul>
-            {% for us in matches %}
-            <li>{{ us.name }}, {{us.email}}<li>
-            {% endfor %}
+            <div class="container mt-4 mb-5">
+                <div class="d-flex justify-content-center row">
+                    <div class="col-md-8">
+                        <div class="feed p-2">
+                            <div class="bg-white border mt-2">
+                                {% for us in matches %}
+                                <div>
+                                    <div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">
+                                        <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" src="https://i.imgur.com/aoKusnD.jpg" width="45">
+                                            <div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">{{ us.name }}</span></div>
+                                        </div>
+                                        <div class="feed-icon px-2"><i class="fa fa-ellipsis-v text-black-50"></i></div>
+                                    </div>
+                                </div>
+                                <div class="p-2 px-3"><span>{{us.email}}</span></div>
+                                <div class="d-flex justify-content-end socials p-2 py-3"><i class="fa fa-thumbs-up"></i><i class="fa fa-comments-o"></i><i class="fa fa-share"></i></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ul>
     {% else %}
     <p>No matches available at this time.</p>
     {% endif %}
 </head>
+
 </html>
+
