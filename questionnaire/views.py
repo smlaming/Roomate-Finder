@@ -18,7 +18,7 @@ def index(request):
         form = NameForm()
     '''
     if request.method == 'POST':
-        form = QuestionForm(request.POST)
+        form = QuestionForm(request.POST, request.FILES)
         names = request.user.username
 
         if form.is_valid():

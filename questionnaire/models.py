@@ -37,6 +37,7 @@ class Question(models.Model):
     guests = models.CharField(max_length=200, choices=(('1', 'Always love to have guests over'), ('2', 'Usually love to have guests over'), ('3', 'Sometimes love to have guests over'), ('4', 'Never love to have guests over')))
     more_introverted_or_extroverted = models.CharField(max_length=200, choices=(('1', 'Introverted'), ('2', 'Extroverted'), ('3', 'In the middle')))
     ideal_rent = models.PositiveBigIntegerField()
+    pfp = models.ImageField(null=True, blank=True)
     # profile_pic = models.ImageField(upload_to=...)
 
     def __str__(self):
