@@ -1,2 +1,21 @@
-{{ user.username }}
-{{user.year}}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <h2>{{responses.name}}'s Profile</h2>
+</head>
+<body>
+<ul>
+    <li>Year: {{responses.year}}</li>
+    <li>Email: {{responses.email}}</li>
+    {% if responses.bio %}
+    <li>Bio: responses.bio</li>
+    {% else %}
+    <li>No bio available</li>
+    {% endif %}
+</ul>
+</body>
+</html>

@@ -68,9 +68,11 @@ def answers(request, username):
 
 
 def user_profile(request, username):
-    user = User.objects.get(username=username)
+    user_obj = User.objects.get(username=username)
+    question_obj = Question.objects.get(user=user_obj)
     context = {
-        "user": user
+        "user": user_obj,
+        "responses": question_obj
     }
 
-    return render(request, 'user_profile.html')
+    return render(request, 'user_profile.html', context)

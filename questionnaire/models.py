@@ -38,10 +38,11 @@ class Question(models.Model):
     more_introverted_or_extroverted = models.CharField(max_length=200, choices=(('1', 'Introverted'), ('2', 'Extroverted'), ('3', 'In the middle')))
     ideal_rent = models.PositiveBigIntegerField()
     pfp = models.ImageField(null=True, blank=True)
+    bio = models.TextField(null=True)
     # profile_pic = models.ImageField(upload_to=...)
 
     def __str__(self):
         return str(self.user)
 
-    def get_user(self):
+    def get_user(self): # received help from Jude in OH to create this function / use it in views
         return self.user
