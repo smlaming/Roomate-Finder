@@ -27,7 +27,7 @@ def index(request):
             #if Question.objects.get(user=request.user):
             try:
                 curr_user = Question.objects.get(user=request.user)
-            except (KeyError, Question.DoesNotExist):
+            except (KeyError, Question.DoesNotExist): #https://docs.djangoproject.com/en/3.2/topics/db/queries/#retrieving-specific-objects-with-filters
                 form_answers = form.save(commit=False)
                 form_answers.user = request.user
             #Quesiton.objects.get(user=request.user)
@@ -36,7 +36,7 @@ def index(request):
             #could consider pre-filling with old info
                 form_answers.save() #if form doesn't exist
             else:
-                print('here')
+                #print('here')
                 #curr_user = Question.objects.get(user=request.user)
                 form_answers = form.save(commit=False)
                 curr_user.name = form_answers.name
