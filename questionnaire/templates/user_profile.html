@@ -5,16 +5,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
+    {% if responses %}
     <h2>{{responses.name}}'s Profile</h2>
+    {% else %}
+    <h2>Please submit the roommate questionnaire!</h2>
+    {% endif %}
 </head>
 <body>
 <ul>
-    <li>Year: {{responses.year}}</li>
-    <li>Email: {{responses.email}}</li>
-    {% if responses.bio %}
-    <li>Bio: responses.bio</li>
+    {% if responses %}
+        <li>Year: {{responses.year}}</li>
+        <li>Email: {{responses.email}}</li>
+        {% if responses.bio %}
+        <li>Bio: {{responses.bio}}</li>
+        {% else %}
+        <li>No bio available</li>
+        {% endif %}
     {% else %}
-    <li>No bio available</li>
+    <p>No questionnaire submitted yet</p>
     {% endif %}
 </ul>
 </body>

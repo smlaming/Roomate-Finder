@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 
 
 from .forms import QuestionForm
@@ -22,9 +23,36 @@ def index(request):
         names = request.user.username
 
         if form.is_valid():
-            answers = form.save(commit=False)
-            answers.user = request.user
-            answers.save()
+            #received help from Sam McBroom in OH to figure out how to resolve overwriting existing entries
+            #if Question.objects.get(user=request.user):
+            try:
+                curr_user = Question.objects.get(user=request.user)
+            except (KeyError, Question.DoesNotExist):
+                form_answers = form.save(commit=False)
+                form_answers.user = request.user
+            #Quesiton.objects.get(user=request.user)
+            #if record exists, instead of saving just change the fields
+            #current record = , then update each individual field (if it changed, then update)
+            #could consider pre-filling with old info
+                form_answers.save() #if form doesn't exist
+            else:
+                print('here')
+                #curr_user = Question.objects.get(user=request.user)
+                form_answers = form.save(commit=False)
+                curr_user.name = form_answers.name
+                curr_user.email = form_answers.email
+                curr_user.year = form_answers.year
+                curr_user.wake_up = form_answers.wake_up
+                curr_user.go_to_bed = form_answers.go_to_bed
+                curr_user.how_clean = form_answers.how_clean
+                curr_user.guests = form_answers.guests
+                curr_user.more_introverted_or_extroverted = form_answers.more_introverted_or_extroverted
+                curr_user.ideal_rent = form_answers.ideal_rent
+                curr_user.pfp = form_answers.pfp
+                curr_user.bio = form_answers.bio
+                curr_user.save() #https://stackoverflow.com/questions/32423401/save-form-data-in-django
+
+            return HttpResponseRedirect(reverse('questionnaire:profile', args=(names,))) #https://docs.djangoproject.com/en/dev/topics/http/urls/#reverse
  
     form = QuestionForm()  # bound form
     return render(request, 'form.html', {'form': form})
