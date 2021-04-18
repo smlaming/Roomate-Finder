@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 
 import os
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -83,19 +84,35 @@ WSGI_APPLICATION = 'roommatefinder.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+if 'test' in sys.argv:
+    #Configuration for test database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'd3rlagcac4cit3',
+            'USER': 'pkudwynznfiykn',
+            'PASSWORD': '27ba052fc181835bc04248398dbc09f0962cdd4bbe882df1564d297b1f2392e0',
+            'HOST': 'ec2-34-225-167-77.compute-1.amazonaws.com',
+            'PORT': 5432,
+            'TEST': {
+                'NAME': 'd3rlagcac4cit3', #This is an important entry
+            }
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
 
-        'NAME': 'd1rgh00vmo1i24',
+            'NAME': 'd1rgh00vmo1i24',
 
-        'USER': 'uoszgxtubbrxrt',
+            'USER': 'uoszgxtubbrxrt',
 
-        'PASSWORD': 'bd578c0b6ca6d2462219a42e2ab66d2884755fe570d633be21f0db641d77fc0d',
+            'PASSWORD': 'bd578c0b6ca6d2462219a42e2ab66d2884755fe570d633be21f0db641d77fc0d',
 
-        'HOST': 'ec2-3-222-11-129.compute-1.amazonaws.com',
+            'HOST': 'ec2-3-222-11-129.compute-1.amazonaws.com',
 
-        'PORT': '5432',
+            'PORT': '5432',
     }
 }
 
