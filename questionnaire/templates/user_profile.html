@@ -2,28 +2,66 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Welcome, {{ user.username }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'questionnaire:form' %}">Roommate Questionnaire</a>
+                </li>
+                <li class="nav-item  active">
+                    <a class="nav-link" href="{% url 'questionnaire:profile' user.username %}">Your Profile
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'questionnaire:answers' user.username %}">Your Results</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron text-center" style="margin-top: 58px; background-color: #E3F0F4;">
     <meta charset="UTF-8">
     <title>Profile</title>
     {% if responses %}
-    <h2>{{responses.name}}'s Profile</h2>
+    <h4 class="mb-3">Your Profile</h4>
+    <p class="lead">If something here is not correct, re-fillout the questionnaire.</p>
     {% else %}
     <h2>Please submit the roommate questionnaire!</h2>
     {% endif %}
-</head>
-<body>
-<ul>
+
     {% if responses %}
-        <li>Year: {{responses.year}}</li>
-        <li>Email: {{responses.email}}</li>
-        {% if responses.bio %}
-        <li>Bio: {{responses.bio}}</li>
-        {% else %}
-        <li>No bio available</li>
-        {% endif %}
+    <hr class="my-4">
+    <li>Name: {{responses.name}}</li>
+    <li>Email: {{responses.email}}</li>
+    <li>Year: {{responses.year}}</li>
+    <li>Wake up: {{responses.wake_up}}</li>
+    <li>Ideal Rent: {{responses.ideal_rent}}</li>
+    <li></li>
+    {% if responses.bio %}
+    <li>Bio: {{responses.bio}}</li>
+    {% else %}
+    <li>No bio available</li>
+    {% endif %}
+    <hr class="my-4">
     {% else %}
     <p>No questionnaire submitted yet</p>
     {% endif %}
-</ul>
-</body>
+
+    <button type="button">
+        <a href="{% url 'questionnaire:form' %}">Take Questionnaire</a>
+      </button>
+</div>
+
+
+
 </html>
