@@ -47,6 +47,25 @@ class Tests(TestCase):
 		form = QuestionForm(data=form_data)
 		self.assertFalse(form.is_valid())
 
+	def test_blank_name_form7(self):
+		form_data = {'name':'','email':'test@virginia.edu','year':'1','wake_up':'1','go_to_bed':'1','how_clean':'1','guests':'1',
+				 'more_introverted_or_extroverted':'1','ideal_rent':'1000','bio':'hi'}
+		form = QuestionForm(data=form_data)
+		self.assertFalse(form.is_valid())
+
+	def test_blank_rent_form8(self):
+		form_data = {'name':'test','email':'test@virginia.edu','year':'1','wake_up':'1','go_to_bed':'1','how_clean':'1','guests':'1',
+		'more_introverted_or_extroverted':'1','ideal_rent':'','bio':'hi'}
+		form = QuestionForm(data=form_data)
+		self.assertFalse(form.is_valid())
+
+	def test_blank_email_form9(self):
+		form_data = {'name':'test','email':'','year':'1','wake_up':'1','go_to_bed':'1','how_clean':'1','guests':'1',
+				 'more_introverted_or_extroverted':'1','ideal_rent':'','bio':'hi'}
+		form = QuestionForm(data=form_data)
+		self.assertFalse(form.is_valid())
+
+
 
 # Views Test
 	def test_home_view(self):

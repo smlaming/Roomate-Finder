@@ -1,6 +1,8 @@
 from django import forms
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 '''
@@ -46,3 +48,10 @@ class Question(models.Model):
 
     def get_user(self): # received help from Jude in OH to create this function / use it in views
         return self.user
+
+    def check_rent(self):
+        rentNum = self.cleaned_data['ideal_rent']
+        if rentNum < 100:
+            raise ValidationError("rent too low!")
+
+        return rentNum

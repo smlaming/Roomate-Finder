@@ -41,14 +41,76 @@
 
     {% if responses %}
     <hr class="my-4">
-    <li>Name: {{responses.name}}</li>
-    <li>Email: {{responses.email}}</li>
-    <li>Year: {{responses.year}}</li>
-    <li>Wake up: {{responses.wake_up}}</li>
-    <li>Ideal Rent: {{responses.ideal_rent}}</li>
-    <li></li>
+    <li>Name: <b>{{responses.name}}</b></li>
+
+    <li>Email: <b>{{responses.email}}</b></li>
+
+    {% if responses.year == '1' %}
+        <li>Year:  <b>1st</b></li>
+    {% elif responses.year == '2' %}
+        <li>Year: <b>2nd</b></li>
+    {% elif responses.year == '3' %}
+        <li>Year:  <b>3rd</b></li>
+    {% elif responses.year == '4' %}
+        <li>Year:  <b>4th</b></li>
+    {% endif %}
+
+    {% if responses.wake_up == '1' %}
+        <li>Wake Up: <b>Before 7am</b></li>
+    {% elif responses.wake_up == '2' %}
+        <li>Wake Up: <b>7:00 - 8:30</b></li>
+    {% elif responses.wake_up == '3' %}
+    <li>Wake Up: <b>8:30 - 10:00</b></li>
+    {% elif responses.wake_up == '4' %}
+        <li>Wake Up: <b>10:00 - 11:30</b></li>
+    {% elif responses.wake_up == '5' %}
+        <li>Wake Up: <b>After 11:30</b></li>
+    {% endif %}
+
+    {% if responses.go_to_bed == '1' %}
+        <li>Usual Bedtime: <b>Before 9:00</b></li>
+    {% elif responses.go_to_bed == '2' %}
+        <li>Usual Bedtime: <b>9:00 - 10:30</b></li>
+    {% elif responses.go_to_bed == '3' %}
+        <li>Usual Bedtime: <b>10:30 - 12:00</b></li>
+    {% elif responses.go_to_bed == '4' %}
+        <li>Usual Bedtime: <b>12:00 - 1:30</b></li>
+    {% elif responses.go_to_bed == '5' %}
+        <li>Usual Bedtime: <b>After 1:30</b></li>
+    {% endif %}
+
+    {% if responses.how_clean == '1' %}
+    <li>How Clean: <b>Very Clean</b></li>
+    {% elif responses.how_clean == '2' %}
+    <li>How Clean: <b>Kinda Clean</b></li>
+    {% elif responses.how_clean == '3' %}
+    <li>How Clean: <b>Kinda Messy</b></li>
+    {% elif responses.how_clean == '4' %}
+    <li>How Clean: <b>Very Messy</b></li>
+    {% endif %}
+
+    {% if responses.guests == '1' %}
+        <li>Guest Policy: <b>Always love to have guests over</b></li>
+    {% elif responses.guests == '2' %}
+        <li>Guest Policy: <b>Usually love to have guests over</b></li>
+    {% elif responses.guests == '3' %}
+        <li>Guest Policy: <b>Sometimes love to have guests over</b></li>
+    {% elif responses.guests == '4' %}
+        <li>Guest Policy: <b>Never love to have guests over</b></li>
+    {% endif %}
+
+    {% if responses.more_introverted_or_extroverted == '1' %}
+        <li>Personality: <b>Introverted</b></li>
+    {% elif responses.more_introverted_or_extroverted == '2' %}
+        <li>Personality: <b>EXtroverted</b></li>
+    {% elif responses.more_introverted_or_extroverted == '3' %}
+        <li>Personality: <b>In the middle</b></li>
+    {% endif %}
+
+    <li>Ideal Rent: <b>${{responses.ideal_rent}}</b></li>
+
     {% if responses.bio %}
-    <li>Bio: {{responses.bio}}</li>
+    <li>Bio: <b>{{responses.bio}}</b></li>
     {% else %}
     <li>No bio available</li>
     {% endif %}
@@ -57,8 +119,9 @@
     <p>No questionnaire submitted yet</p>
     {% endif %}
 
-    <button type="button">
-        <a href="{% url 'questionnaire:form' %}">Take Questionnaire</a>
+
+    <button type="button" class="btn-sm">
+        <a href="{% url 'questionnaire:form' %}">ReTake Questionnaire</a>
       </button>
 </div>
 

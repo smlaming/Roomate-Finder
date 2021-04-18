@@ -21,7 +21,6 @@ def index(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST, request.FILES)
         names = request.user.username
-
         if form.is_valid():
             #received help from Sam McBroom in OH to figure out how to resolve overwriting existing entries
             #if Question.objects.get(user=request.user):
@@ -35,6 +34,7 @@ def index(request):
             #current record = , then update each individual field (if it changed, then update)
             #could consider pre-filling with old info
                 form_answers.save() #if form doesn't exist
+
             else:
                 #print('here')
                 #curr_user = Question.objects.get(user=request.user)
