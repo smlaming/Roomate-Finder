@@ -1,12 +1,25 @@
+from __future__ import print_function
+
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 
+import datetime
+import os.path
+
+
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+
 
 from .forms import QuestionForm
 from .models import Question
+from .cal_setup import main as cal_main
 
 # Create your views here.
 def index(request):
@@ -104,3 +117,97 @@ def user_profile(request, username):
     }
 
     return render(request, 'user_profile.html', context)
+
+
+
+def calendar(request, username):
+    SCOPES = ['https://www.googleapis.com/auth/calendar']
+    creds = None
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('questionnaire/token.json'):
+        #print('here')
+        creds = Credentials.from_authorized_user_file('questionnaire/token.json', SCOPES)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'questionnaire/credentials.json', SCOPES)
+            creds = flow.run_local_server(port=8080)
+            # creds = flow.run_console()
+        # Save the credentials for the next run
+        with open('questionnaire/token.json', 'w') as token:
+            token.write(creds.to_json())
+
+    service = build('calendar', 'v3', credentials=creds)
+
+    #if not events:
+        #print('No upcoming events found.')
+    #for event in events:
+        #start = event['start'].get('dateTime', event['start'].get('date'))
+        #print(start, event['summary'])
+    '''
+    all_calendars = service.calendarList().list().execute()
+    #print(all_calendars)
+    roommate_cal_exists = False
+    for cal in all_calendars:
+        if cal.get('summary') == 'roommateFinderCalendar':
+            roommate_cal_exists = True
+            roommate_cal_ID = cal['id']
+    if not roommate_cal_exists:
+        roommate_cal = {
+            'summary': 'roommateFinderCalendar',
+            'timeZone': 'America/New_York'
+        }
+        created_cal = service.calendars().insert(body=roommate_cal).execute()
+        roommate_cal_ID = created_cal['id']
+    #print(created_cal['id'])
+    '''
+    # Call the Calendar API
+    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+    # result = service.calendarList().list().execute() - list of calendars,
+    #print('Getting the upcoming 10 events')
+    events_result = service.events().list(calendarId='primary', timeMin=now,
+                                          maxResults=10, singleEvents=True,
+                                          orderBy='startTime').execute()
+    # service.calendarList().list().execute() - outputs all calendars
+    events = events_result.get('items', [])
+
+    context = {
+        'events': events
+    }
+    return render(request, 'calendar.html', context)
+'''
+def create_event(request, username):
+    creds = None
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('token.json'):
+        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'questionnaire/credentials.json', SCOPES)
+            creds = flow.run_local_server(port=8080)
+            # creds = flow.run_console()
+        # Save the credentials for the next run
+        with open('token.json', 'w') as token:
+            token.write(creds.to_json())
+
+    service = build('calendar', 'v3', credentials=creds)
+
+    # Call the Calendar API
+    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+    # result = service.calendarList().list().execute() - list of calendars,
+    print('Getting the upcoming 10 events')
+    events_result = service.events().list(calendarId='primary', timeMin=now,
+                                          maxResults=10, singleEvents=True,
+                                          orderBy='startTime').execute()
+'''
