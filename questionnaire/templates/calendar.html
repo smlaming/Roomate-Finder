@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+    <p>This is your calendar</p>
+    {% if events %}
+    <p>Upcoming events:</p>
+    <ul>
+        {% for event in events %}
+        <li>{{ event.summary }} at {{ event.start.dateTime }}</li>
+    {% endfor %}
+    </ul>
+    {%else%}
+    <p>You have no events in the next 10 days </p>
+    {% endif %}
+</head>
+<body>
+
+</body>
+</html>
