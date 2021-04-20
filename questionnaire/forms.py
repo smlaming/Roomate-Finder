@@ -15,6 +15,9 @@ class EventForm(forms.ModelForm):
         #widgets = {name of field :
         # {day : forms.DateInput(**edit attributes**)}
         #import scrips into html (JQuery Date Picker) possibly
+        #received help from Daniel Zhao in OH
+        #https://docs.djangoproject.com/en/3.2/ref/forms/widgets/#dateinput
+        #https://stackoverflow.com/questions/59035021/django-dateinput-widget-not-working-in-modelform
         widgets = {
             'day': forms.DateInput(attrs={'class':'form-control', 'type':'date'}),
             'start_time':forms.TimeInput(attrs={'class':'form-control', 'type':'time'})
