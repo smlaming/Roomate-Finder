@@ -1,5 +1,6 @@
 from __future__ import print_function
-
+import datetime
+from datetime import datetime, timedelta
 
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
@@ -7,18 +8,18 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 
-import datetime
+
 import os.path
 
-
+#for calendar function
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
 
-from .forms import QuestionForm
-from .models import Question
+from .forms import QuestionForm, EventForm
+from .models import Question, Event
 from .cal_setup import main as cal_main
 
 # Create your views here.
@@ -49,7 +50,7 @@ def index(request):
             #could consider pre-filling with old info
                 form_answers.save() #if form doesn't exist
             else:
-                print('here')
+                #print('here')
                 #curr_user = Question.objects.get(user=request.user)
                 form_answers = form.save(commit=False)
                 curr_user.name = form_answers.name
@@ -119,15 +120,16 @@ def user_profile(request, username):
     return render(request, 'user_profile.html', context)
 
 
-
 def calendar(request, username):
+    # general set up - https://www.youtube.com/watch?v=j1mh0or2CX8
+    # Calendar API - https://developers.google.com/calendar/v3/reference/calendarList/list
+    # Quick Start - https://developers.google.com/calendar/quickstart/python
     SCOPES = ['https://www.googleapis.com/auth/calendar']
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
     if os.path.exists('questionnaire/token.json'):
-        #print('here')
         creds = Credentials.from_authorized_user_file('questionnaire/token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
@@ -136,24 +138,20 @@ def calendar(request, username):
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 'questionnaire/credentials.json', SCOPES)
-            creds = flow.run_local_server(port=8080)
-            # creds = flow.run_console()
+            #creds = flow.run_local_server(port=8080)
+            creds = flow.run_console()
         # Save the credentials for the next run
         with open('questionnaire/token.json', 'w') as token:
             token.write(creds.to_json())
 
     service = build('calendar', 'v3', credentials=creds)
 
-    #if not events:
-        #print('No upcoming events found.')
-    #for event in events:
-        #start = event['start'].get('dateTime', event['start'].get('date'))
-        #print(start, event['summary'])
-    '''
     all_calendars = service.calendarList().list().execute()
     #print(all_calendars)
+
+    #create a 'roommate finder calendar' for the user
     roommate_cal_exists = False
-    for cal in all_calendars:
+    for cal in all_calendars["items"]:
         if cal.get('summary') == 'roommateFinderCalendar':
             roommate_cal_exists = True
             roommate_cal_ID = cal['id']
@@ -164,13 +162,12 @@ def calendar(request, username):
         }
         created_cal = service.calendars().insert(body=roommate_cal).execute()
         roommate_cal_ID = created_cal['id']
-    #print(created_cal['id'])
-    '''
+
     # Call the Calendar API
-    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+    now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
     # result = service.calendarList().list().execute() - list of calendars,
     #print('Getting the upcoming 10 events')
-    events_result = service.events().list(calendarId='primary', timeMin=now,
+    events_result = service.events().list(calendarId=roommate_cal_ID, timeMin=now,
                                           maxResults=10, singleEvents=True,
                                           orderBy='startTime').execute()
     # service.calendarList().list().execute() - outputs all calendars
@@ -180,14 +177,52 @@ def calendar(request, username):
         'events': events
     }
     return render(request, 'calendar.html', context)
-'''
+
+def make_event(day, start_time, summary, user_email1, user_email2, duration=1, description=None, location=None):
+    start_hour = str(start_time)[0:2]
+    start_min = str(start_time)[2:]
+    end_hour = str(int(start_hour)+duration)
+    if len(str(end_hour)) < 2:
+        end_hour = str(0) + end_hour
+    #'2015-05-28T09:00:00-07:00'
+    start_time = str(day) + "T" + str(start_hour) + start_min
+    end_time = str(day) + "T" + str(end_hour) + start_min
+    #end_time = start_time + timedelta(hours=duration)
+    event = {
+        'summary': summary,
+        'location': location,
+        'description': description,
+        'start': {
+            'dateTime': start_time,
+            'timeZone': 'America/New_York',
+        },
+        'end': {
+            'dateTime': end_time,
+            'timeZone': 'America/New_York',
+        },
+        'attendees': [
+            #{'email': user_email1},
+            {'email': user_email2},
+        ],
+        'reminders': {
+            'useDefault': False,
+            'overrides': [
+                {'method': 'email', 'minutes': 24*60},
+                {'method': 'popup', 'minutes': 10},
+            ],
+        },
+    }
+    #print(event)
+    return event
+
 def create_event(request, username):
+    SCOPES = ['https://www.googleapis.com/auth/calendar']
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+    if os.path.exists('questionnaire/token.json'):
+        creds = Credentials.from_authorized_user_file('questionnaire/token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -195,19 +230,46 @@ def create_event(request, username):
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 'questionnaire/credentials.json', SCOPES)
-            creds = flow.run_local_server(port=8080)
-            # creds = flow.run_console()
+            #creds = flow.run_local_server(port=8080)
+            creds = flow.run_console()
         # Save the credentials for the next run
-        with open('token.json', 'w') as token:
+        with open('questionnaire/token.json', 'w') as token:
             token.write(creds.to_json())
 
     service = build('calendar', 'v3', credentials=creds)
+    if request.method == 'POST':
+        form = EventForm(request.POST, request.FILES)
+        #inviter = request.user.email
 
-    # Call the Calendar API
-    now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-    # result = service.calendarList().list().execute() - list of calendars,
-    print('Getting the upcoming 10 events')
-    events_result = service.events().list(calendarId='primary', timeMin=now,
-                                          maxResults=10, singleEvents=True,
-                                          orderBy='startTime').execute()
-'''
+        if form.is_valid():
+            form_answers = form.save(commit=False)
+            #form_answers.user = request.user
+            form_answers.save()
+
+            all_calendars = service.calendarList().list().execute()
+            # create a 'roommate finder calendar' for the user if it doesn't already exist
+            roommate_cal_exists = False
+            for cal in all_calendars["items"]:
+                if cal.get('summary') == 'roommateFinderCalendar':
+                    roommate_cal_exists = True
+                    roommate_cal_ID = cal['id']
+            if not roommate_cal_exists:
+                roommate_cal = {
+                    'summary': 'roommateFinderCalendar',
+                    'timeZone': 'America/New_York'
+                }
+                created_cal = service.calendars().insert(body=roommate_cal).execute()
+                roommate_cal_ID = created_cal['id']
+
+            # create calendar events
+            e = make_event(form_answers.day, form_answers.start_time, form_answers.summary, form_answers.inviter, form_answers.invitee, form_answers.duration, form_answers.zoom_link)
+            event = service.events().insert(calendarId=roommate_cal_ID, body=e).execute()
+            event_link = event.get('htmlLink')
+            return HttpResponseRedirect(event_link)
+            #print('Event created: %s' % (event.get('htmlLink')))
+
+
+
+    form = EventForm()  # bound form
+    return render(request, 'create_event.html', {'form': form})
+

@@ -46,3 +46,15 @@ class Question(models.Model):
 
     def get_user(self): # received help from Jude in OH to create this function / use it in views
         return self.user
+
+class Event(models.Model):
+    summary = models.CharField(max_length=200)
+    zoom_link = models.URLField(max_length=200, blank=True)
+    day = models.DateField(auto_now=False, help_text='YYYY-MM-DD') #YYYY-MM-DD HH:MM
+    start_time = models.TimeField(auto_now=False, help_text='HH:MM')
+    duration = models.IntegerField(default=1)
+    inviter = models.EmailField()
+    invitee = models.EmailField()
+
+    def __str__(self):
+        return self.summary
