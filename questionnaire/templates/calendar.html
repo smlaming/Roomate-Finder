@@ -1,8 +1,44 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
 <!DOCTYPE html>
 <html lang="en">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top" style="background: #002F6C">
+        <div class="container" style="background: #002F6C">
+            <a class="navbar-brand" href="#" style="color: #E57200">Welcome, {{ user.username }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" style="color: white">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'questionnaire:form' %}" style="color: white">Roommate Questionnaire</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'questionnaire:profile' user.username %}" style="color: white">Your Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'questionnaire:answers' user.username %}" style="color: white">Your Results</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'questionnaire:createevent' user.username %}" style="color: white">Create Event
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'questionnaire:calendar' user.username %}" style="color: #E57200">Your Calendar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
 <head>
     <meta charset="UTF-8">
-    <title>Calendar</title>
+    <div class="jumbotron text-center" style="margin-top: 58px; background-color: #FFFFFF;">
+        <h3 class="font-weight-bold"> Calendar </h3>
     <p>This is your calendar</p>
     {% if events %}
     <p>Upcoming events:</p>
@@ -15,7 +51,4 @@
     <p>You have no events in the next 10 days </p>
     {% endif %}
 </head>
-<body>
-
-</body>
 </html>

@@ -19,31 +19,38 @@
 
 <!-- Navigation -->
 {% if user.is_authenticated %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#">Welcome Back, {{ user.username }}!</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top" style="background: #002F6C">
+    <div class="container" style="background: #002F6C">
+        <a class="navbar-brand" href="#" style="color: #E57200">Welcome, {{ user.username }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'questionnaire:form' %}">Roommate Questionnaire</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'questionnaire:profile' user.username %}">Your Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'questionnaire:answers' user.username %}">Your Results</a>
-        </li>
-      </ul>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/" style="color: #E57200">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'questionnaire:form' %}" style="color: white">Roommate Questionnaire</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'questionnaire:profile' user.username %}" style="color: white">Your Profile</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'questionnaire:answers' user.username %}" style="color: white">Your Results
+                        <span class="sr-only">(current)</span>
+                    </a>
+
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'questionnaire:createevent' user.username %}" style="color: white">Create Event</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'questionnaire:calendar' user.username %}" style="color: white">Your Calendar</a>
+            </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 
 <!-- Full Page Image Header with Vertically Centered Content -->
@@ -69,6 +76,24 @@
 </section>
 
 {% else %}
-<h1>Welcome to the Roommate Finder App!</h1>
-  <a href="{% provider_login_url 'google' %}">Login with Google</a>
+<header class="masthead">
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">
+        <h1 class="font-weight-bold" style="color:white">Welcome to the Roommate Finder App!</h1>
+        <a href="{% provider_login_url 'google' %}" class="font-weight-bold" style="color:white">Login with Google</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="py-5">
+  <div class="container">
+    <h2 class="font-weight-light">Our Project</h2>
+    <p>As a group of UVA students, we noticed many of our peers struggled with finding roomates, espicially for
+    after their first year. We developed this web app to make this stress-innducing process a little easier.
+    Fill out the questionairre and we will automatically match you with other students we think would be a good
+    fit!</p>
+  </div>
+</section>
 {% endif %}

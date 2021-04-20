@@ -2,32 +2,39 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">Welcome, {{ user.username }}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'questionnaire:form' %}">Roommate Questionnaire</a>
-                </li>
-                <li class="nav-item  active">
-                    <a class="nav-link" href="{% url 'questionnaire:profile' user.username %}">Your Profile
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'questionnaire:answers' user.username %}">Your Results</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top" style="background: #002F6C">
+        <div class="container" style="background: #002F6C">
+            <a class="navbar-brand" href="#" style="color: #E57200">Welcome, {{ user.username }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" style="color: white">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'questionnaire:form' %}" style="color: white">Roommate Questionnaire</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'questionnaire:profile' user.username %}" style="color: #E57200">Your Profile</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'questionnaire:answers' user.username %}" style="color: white">Your Results
+                            <span class="sr-only">(current)</span>
+                        </a>
+    
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'questionnaire:createevent' user.username %}" style="color: white">Create Event</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'questionnaire:calendar' user.username %}" style="color: white">Your Calendar</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 <div class="jumbotron text-center" style="margin-top: 58px; background-color: #E3F0F4;">
     <meta charset="UTF-8">
