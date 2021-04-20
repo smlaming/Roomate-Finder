@@ -104,7 +104,8 @@ def answers(request, username):
     context = {
         "all_users": all_users,
         "curr_user": curr_user,
-        "matches": matches
+        "matches": matches,
+        'username':username
     }
     return render(request, 'answers.html', context)
 
