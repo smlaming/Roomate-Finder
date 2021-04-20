@@ -114,7 +114,8 @@ def user_profile(request, username):
     question_obj = Question.objects.get(user=user_obj)
     context = {
         "user": user_obj,
-        "responses": question_obj
+        "responses": question_obj,
+        "username":username
     }
 
     return render(request, 'user_profile.html', context)

@@ -25,5 +25,8 @@
     <p>No questionnaire submitted yet</p>
     {% endif %}
 </ul>
+<button type="button" class="btn-sm">
+        <a href="{% url 'questionnaire:calendar' username %}">View my calendar</a>
+      </button>
 </body>
 </html>
