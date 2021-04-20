@@ -65,6 +65,8 @@ class Question(models.Model):
 
 #https://georgexyz.com/django-model-form-validation.html
 def day_validator(value):
+    #if not isinstance(value, int):
+
     month = str(value.month)
     day = str(value.day)
     if len(month) < 2:
