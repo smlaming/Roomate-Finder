@@ -107,6 +107,7 @@ def answers(request, username):
         "matches": matches,
         'username':username
     }
+    #http://www.learningaboutelectronics.com/Articles/How-to-create-dynamic-URLs-in-Django.php 
     return render(request, 'answers.html', context)
 
 
