@@ -219,6 +219,11 @@ def make_event(day, start_time, summary, user_email1, user_email2, duration=1, d
     return event
 
 def create_event(request, username):
+    match = User.objects.filter(username=username)
+    matches_email = match[0].email
+    #get email from that match.email
+    # to get current user call request.user
+    curr_user = request.user
     SCOPES = ['https://www.googleapis.com/auth/calendar']
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -265,13 +270,11 @@ def create_event(request, username):
                 roommate_cal_ID = created_cal['id']
 
             # create calendar events
-            e = make_event(form_answers.day, form_answers.start_time, form_answers.summary, form_answers.inviter, form_answers.invitee, form_answers.duration, form_answers.zoom_link)
+            e = make_event(form_answers.day, form_answers.start_time, form_answers.summary, curr_user.email, matches_email, form_answers.duration, form_answers.zoom_link)
             event = service.events().insert(calendarId=roommate_cal_ID, body=e).execute()
             event_link = event.get('htmlLink')
             return HttpResponseRedirect(event_link)
             #print('Event created: %s' % (event.get('htmlLink')))
-
-
 
     form = EventForm()  # bound form
     return render(request, 'create_event.html', {'form': form})

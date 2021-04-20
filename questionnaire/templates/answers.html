@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="p-2 px-3"><span>{{us.email}}</span></div>
                                 <button type="button" class="btn-sm">
-                                    <a href="{% url 'questionnaire:createevent' username %}">Make a calendar event with your match!</a>
+                                    <a href="{% url 'questionnaire:createevent' us.user %}">Make a calendar event with your match!</a>
                                 </button>
                                 <div class="d-flex justify-content-end socials p-2 py-3"><i class="fa fa-thumbs-up"></i><i class="fa fa-comments-o"></i><i class="fa fa-share"></i></div>
                                 {% endfor %}

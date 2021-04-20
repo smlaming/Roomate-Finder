@@ -11,3 +11,4 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ('summary', 'zoom_link', 'day', 'start_time', 'duration', 'inviter', 'invitee')
+        exclude = ('inviter', 'invitee',)
