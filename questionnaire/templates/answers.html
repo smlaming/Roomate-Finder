@@ -2,28 +2,34 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">Welcome, {{ user.username }}</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top" style="background: #002F6C">
+    <div class="container" style="background: #002F6C">
+        <a class="navbar-brand" href="#" style="color: #E57200">Welcome, {{ user.username }}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/" style="color: white">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'questionnaire:form' %}">Roommate Questionnaire</a>
+                    <a class="nav-link" href="{% url 'questionnaire:form' %}" style="color: white">Roommate Questionnaire</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'questionnaire:profile' user.username %}">Your Profile</a>
+                    <a class="nav-link" href="{% url 'questionnaire:profile' user.username %}" style="color: white">Your Profile</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'questionnaire:answers' user.username %}">Your Results
+                    <a class="nav-link" href="{% url 'questionnaire:answers' user.username %}" style="color: #E57200">Your Results
                         <span class="sr-only">(current)</span>
                     </a>
 
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'questionnaire:createevent' user.username %}" style="color: white">Create Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'questionnaire:calendar' user.username %}" style="color: white">Your Calendar</a>
                 </li>
             </ul>
         </div>
@@ -48,13 +54,19 @@
                                 {% for us in matches %}
                                 <div>
                                     <div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">
-                                        <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" src="https://i.imgur.com/aoKusnD.jpg" width="45">
-                                            <div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">{{ us.name }}, {{ us.user }}</span></div>
+
+                                        {% if us.pfp %}
+                                        <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" width="45" height="45" src="https://dwltestproj1.s3.amazonaws.com/static/{{us.pfp}}">
+                                        {% else %}
+                                        <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width="45">
+                                        {% endif %}
+                                            
+                                            <div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">{{ us.name }}, {{ us.email }}</span></div>
                                         </div>
                                         <div class="feed-icon px-2"><i class="fa fa-ellipsis-v text-black-50"></i></div>
                                     </div>
                                 </div>
-                                <div class="p-2 px-3"><span>{{us.email}}</span></div>
+                                <div class="p-2 px-3"><span>{{us.bio}}</span></div>
                                 <button type="button" class="btn-sm">
                                     <a href="{% url 'questionnaire:createevent' us.user %}">Make a calendar event with your match!</a>
                                 </button>
