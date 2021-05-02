@@ -141,8 +141,8 @@ def calendar(request, username):
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
                 'questionnaire/credentials.json', SCOPES)
-            #creds = flow.run_local_server(port=8080)
-            creds = flow.run_console()
+            creds = flow.run_local_server(port=8080)
+            #creds = flow.run_console()
         # Save the credentials for the next run
         with open('questionnaire/token.json', 'w') as token:
             token.write(creds.to_json())
