@@ -109,11 +109,3 @@ class Tests(TestCase):
 		expected = f'{form.name}, {form.email}'
 		self.assertEqual(expected, 'test, test@virginia.edu')
 
-	def test_home_view(self):
-		client = Client()
-		response = client.get(reverse('home'))
-		self.assertEquals(response.status_code, 200)
-
-	def test_questionnaire_view(self):
-		response = self.client.get('')
-		self.assertEqual(response.status_code, 200)
