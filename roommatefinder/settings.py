@@ -30,7 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['roommate-finder-a-22.herokuapp.com']
 
-SECURE_SSL_REDIRECT = True
+#Turn to False when running locally
+SECURE_SSL_REDIRECT = False
 
 # Application definition
 

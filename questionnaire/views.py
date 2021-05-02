@@ -204,7 +204,7 @@ def make_event(day, start_time, summary, user_email1, user_email2, duration=1, d
             'timeZone': 'America/New_York',
         },
         'attendees': [
-            #{'email': user_email1},
+            {'email': user_email1},
             {'email': user_email2},
         ],
         'reminders': {
