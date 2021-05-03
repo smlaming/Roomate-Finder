@@ -169,15 +169,19 @@ def calendar(request, username):
     # Call the Calendar API
     now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
     # result = service.calendarList().list().execute() - list of calendars,
-    #print('Getting the upcoming 10 events')
-    events_result = service.events().list(calendarId=roommate_cal_ID, timeMin=now,
-                                          maxResults=10, singleEvents=True,
+    #print('Getting the upcoming 10 events')  = how to get 10 results only maxResults=10,
+    events_result = service.events().list(calendarId=roommate_cal_ID, timeMin=now, singleEvents=True,
                                           orderBy='startTime').execute()
     # service.calendarList().list().execute() - outputs all calendars
     events = events_result.get('items', [])
+    my_events = []
+    for e in events:
+        for email in e['attendees']:
+            if email['email'] == request.user.email:
+                my_events.append(e)
 
     context = {
-        'events': events
+        'events': my_events
     }
     return render(request, 'calendar.html', context)
 
