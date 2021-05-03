@@ -40,7 +40,7 @@
     <p>Upcoming events:</p>
     <ul>
         {% for event in events %}
-        <li>{{ event.summary }} at {{ event.start.dateTime }}</li>
+        <li>{{ event.summary }} at {{ event.start.dateTime }} at {{ event.htmlLink }}</li>
     {% endfor %}
     </ul>
     {%else%}

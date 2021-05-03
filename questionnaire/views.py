@@ -207,6 +207,9 @@ def make_event(day, start_time, summary, user_email1, user_email2, duration=1, d
             'dateTime': end_time,
             'timeZone': 'America/New_York',
         },
+        'organizer' : {
+            'email':user_email1
+        },
         'attendees': [
             {'email': user_email1},
             {'email': user_email2},
