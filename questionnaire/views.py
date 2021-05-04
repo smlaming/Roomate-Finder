@@ -166,6 +166,16 @@ def calendar(request, username):
         created_cal = service.calendars().insert(body=roommate_cal).execute()
         roommate_cal_ID = created_cal['id']
 
+    #grant user permission to read cal
+    rule = {
+        'scope': {
+            'type' : 'user',
+            'value' : request.user.email
+        },
+        'role' : 'reader'
+    }
+    created_rule = service.acl().insert(calendarId=roommate_cal_ID, body=rule).execute()
+
     # Call the Calendar API
     now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
     # result = service.calendarList().list().execute() - list of calendars,
@@ -276,6 +286,7 @@ def create_event(request, username):
                 created_cal = service.calendars().insert(body=roommate_cal).execute()
                 roommate_cal_ID = created_cal['id']
 
+            #created_rule = service.acl().insert(calendarId=roommate_cal_ID, body=rule).execute()
             # create calendar events
             e = make_event(form_answers.day, form_answers.start_time, form_answers.summary, curr_user.email, matches_email, form_answers.duration, form_answers.zoom_link)
             event = service.events().insert(calendarId=roommate_cal_ID, body=e).execute()
