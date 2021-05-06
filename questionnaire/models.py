@@ -44,7 +44,7 @@ class Question(models.Model):
     how_clean = models.CharField(max_length=200, choices=(('1', 'Very Clean'), ('2', 'Kinda Clean'), ('3', 'Kinda Messy'), ('4', 'Very Messy')))
     guests = models.CharField(max_length=200, choices=(('1', 'Always love to have guests over'), ('2', 'Usually love to have guests over'), ('3', 'Sometimes love to have guests over'), ('4', 'Never love to have guests over')))
     more_introverted_or_extroverted = models.CharField(max_length=200, choices=(('1', 'Introverted'), ('2', 'Extroverted'), ('3', 'In the middle')))
-    ideal_rent = models.PositiveBigIntegerField()
+    ideal_rent = models.PositiveBigIntegerField(validators=[MinValueValidator(200,message="Please enter a number above 200"), MaxValueValidator(1500, message="Please enter a number below 1500")])
     pfp = models.ImageField(null=True, blank=True) #text field that's a path to an image, rather than save in the form, save as a form of media
     bio = models.TextField(null=True)
     # profile_pic = models.ImageField(upload_to=...)
