@@ -48,10 +48,11 @@
     <hr class="my-4">
 
     {% if us.pfp %}
-        <img class="rounded-circle center-block" width="45" height="45" src="https://dwltestproj1.s3.amazonaws.com/static/{{us.pfp}}" />
+        <li><img class="rounded-circle center-block" width="45" height="45" src="https://dwltestproj1.s3.amazonaws.com/static/{{us.pfp}}">
     {% else %}
-        <img class="rounded-circle center-block" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width="45" />
+        <li><img class="rounded-circle center-block" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width="45">
     {% endif %}
+        </li>
 
     <li>Name: <b>{{responses.name}}</b></li>
 
