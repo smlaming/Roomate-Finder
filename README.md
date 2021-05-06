@@ -3,7 +3,7 @@ UVA CS 3240, Group A-22, Spring 2021
 
 ## Description
 
-  Hello! Thank you for looking at our Django project. We made a site to faciliate the stressful proccess of finding an undergrad roomate at the University of Virginia.
+  Hello! Thank you for looking at our Django project. We made a site to faciliate the stressful proccess of finding an undergrad roommate at the University of Virginia.
 Our site first asks some basic information about you, including some of the lifestyle habits, any compares you to other participants. If we think you would be a good 
 match based on our algorithm, we tell both parties. Users have a chance to review every match, and if interested reach out to them!  
 
@@ -16,7 +16,7 @@ Below is a short description of every page on the site
 
 The landing page for our site. Gives a breif discription of our site and why we built it. 
 
-#### Roomate Questionnaire
+#### Roommate Questionnaire
 
 This should be the first stop for all users. Here you can enter in information about yourself, or change previous input. Once submitted users are automatically
 redirected to the "Your Profile" tab.
@@ -36,7 +36,7 @@ to reach out and make a calendar with them to chat!
 
 This will display any and all upcoming meetings a user has scheduled with potential matches.
 
-## Fun Festures
+## Fun Features
 The aspects of our site we are particularly proud of:  
 
 * Users are given a list of canidates we think would be good before making their final choice (as opposed to seeing every canidate possible, and having to comb through lots of unnecessary results.)
