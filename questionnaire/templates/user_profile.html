@@ -119,21 +119,23 @@
     <li>No bio available</li>
     {% endif %}
     <hr class="my-4">
-    {% else %}
-    <p>No questionnaire submitted yet</p>
-    {% endif %}
-
-
     <button type="button" class="btn-sm">
         <a href="{% url 'questionnaire:form' %}">ReTake Questionnaire</a>
       </button>
+    <button type="button" class="btn-sm">
+        <a href="{% url 'questionnaire:calendar' username %}">View my calendar</a>
+    </button>
+    {% else %}
+    <p>No questionnaire submitted yet</p>
+    <button type="button" class="btn-sm">
+        <a href="{% url 'questionnaire:form' %}">Take Questionnaire!</a>
+      </button>
+    {% endif %}
 </div>
 
 
 </ul>
-<button type="button" class="btn-sm">
-        <a href="{% url 'questionnaire:calendar' username %}">View my calendar</a>
-</button>
+
 </body>
 
 </html>
