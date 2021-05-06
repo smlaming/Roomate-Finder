@@ -26,12 +26,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-88138$o^)l*8wwx08p^m%nn3-issy_35sm&6iwub24))2bcsxv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-#ALLOWED_HOSTS = ['roommate-finder-a-22.herokuapp.com']
+ALLOWED_HOSTS = ['roommate-finder-a-22.herokuapp.com']
 
 #Turn to False when running locally
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = True
 
 # Application definition
 
