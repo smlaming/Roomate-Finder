@@ -144,6 +144,27 @@ def calendar(request, username):
     # general set up - https://www.youtube.com/watch?v=j1mh0or2CX8
     # Calendar API - https://developers.google.com/calendar/v3/reference/calendarList/list
     # Quick Start - https://developers.google.com/calendar/quickstart/python
+    '''/ ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
+    *REFERENCES
+    *Title: Integrating Google Calendar API into Python Projects
+    *Author: nikhil kumarsingh
+    *Date: May 10, 2019
+    *Code version: Python
+    *URL: https://www.youtube.com/watch?v=j1mh0or2CX8
+    *URL: https://gist.github.com/nikhilkumarsingh/8a88be71243afe8d69390749d16c8322
+    *Software License: N/A
+    *Used for: Followed this Youtube video to get the basics of the Google Calendar API integration as well as the
+    basics of the 'create_event()' function
+    *
+    *Title: Python Quickstart
+    *Author: Google
+    *Date: N/A
+    *Code version: Python
+    *URL: https://developers.google.com/calendar/quickstart/python
+    *Software License: Apache 2.0
+    *Used for: Used the sample code to get the base of the Calendar API integration
+    *
+    ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** * /'''
     SCOPES = ['https://www.googleapis.com/auth/calendar']
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
