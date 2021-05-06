@@ -11,30 +11,43 @@ from datetime import date
 
 
 # Create your models here.
-'''
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    def __str__(self):
-        return self.question_text
-
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    def __str__(self):
-        return self.choice_text
-
-
-class NameForm(forms.Form):
-    name = forms.CharField(label='Your name', max_length=100)
-
-
-class PersonalityForm(forms.Form):
-    name = forms.CharField(label='Your name: ', max_length=200)
-    #year = forms.MultipleChoiceField(label="Year: ", choices=(('1', '1st'), ('2','2nd'), ('3','3rd'), ('4', '4th')))
-
-'''
 
 class Question(models.Model):
+    '''
+    / ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
+    *REFERENCES
+    *Title: Models
+    *Author: Django
+    *Date: N/A
+    *Code version: Python
+    *URL: https://docs.djangoproject.com/en/3.2/topics/db/models/
+    *Software License: BSD-3
+    *Used for: Creating models
+    *
+    *Title: Form fieldsf
+    *Author: Django
+    *Date: N/A
+    *Code version: Python
+    *URL: https://docs.djangoproject.com/en/3.2/ref/forms/fields/
+    *Software License: BSD-3
+    *Used for: understanding each of the fields
+    *
+    *Title: MaxValyeValidator, MinValueValidator
+    *Author: Django
+    *Date: N/A
+    *Code version: Python
+    *URL: https://docs.djangoproject.com/en/3.2/ref/validators/
+    *Software License: BSD-3
+    *Used for: understanding input checking for rent
+    *
+    *Title: MPython django.core.validators.MinValueValidator() Examples
+    *Author: Program Creek / Yeah-Kun
+    *Date: N/A
+    *Code version: Python
+    *URL: https://www.programcreek.com/python/example/91504/django.core.validators.MinValueValidator
+    *Software License: Apache License 2.0
+    *Used for: understanding how to use the Validators
+    '''
     user = models.OneToOneField(User, null =True, on_delete=models.CASCADE, blank=True)
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -45,7 +58,7 @@ class Question(models.Model):
     guests = models.CharField(max_length=200, choices=(('1', 'Always love to have guests over'), ('2', 'Usually love to have guests over'), ('3', 'Sometimes love to have guests over'), ('4', 'Never love to have guests over')))
     more_introverted_or_extroverted = models.CharField(max_length=200, choices=(('1', 'Introverted'), ('2', 'Extroverted'), ('3', 'In the middle')))
     ideal_rent = models.PositiveBigIntegerField(validators=[MinValueValidator(200,message="Please enter a number above 200"), MaxValueValidator(1500, message="Please enter a number below 1500")])
-    pfp = models.ImageField(null=True, blank=True) #text field that's a path to an image, rather than save in the form, save as a form of media
+    pfp = models.ImageField(null=True, blank=True)
     bio = models.TextField(null=True)
     # profile_pic = models.ImageField(upload_to=...)
 
@@ -55,18 +68,40 @@ class Question(models.Model):
     def get_user(self): # received help from Jude in OH to create this function / use it in views
         return self.user
 
-
+    '''
     def check_rent(self):
         rentNum = self.cleaned_data['ideal_rent']
         if rentNum < 100:
             raise ValidationError("rent too low!")
 
         return rentNum
-
+    '''
 #https://georgexyz.com/django-model-form-validation.html
 def day_validator(value):
-    #if not isinstance(value, int):
+    '''
+    This function checks to see if the user tries to plan an event in a date that has already passed
+    '''
+    '''
+    / ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
+    *REFERENCES
+    *Title: Django Model and Form Validation
+    *Author: George Zhang
+    *Date: 8/15/2019
+    *Code version: Python
+    *URL: https://georgexyz.com/django-model-form-validation.html
+    *Software License: BSD-3
+    *Used for: Understanding how to raise validation errors in a function 
+    *
+    *Title: Python program to print current year, month, and day 
+    *Author: Geeks for Geeks / abhijithoyur
+    *Date: 12/29/2020
+    *Code version: Python3
+    *URL: https://www.geeksforgeeks.org/python-program-to-print-current-year-month-and-day/#:~:text=In%20Python%2C%20in%20order%20to%20print%20the%20current,function%20of%20date%20class%20to%20fetch%20todays%20date.
+    *Software License: N/A
+    *Used for: how to access todays date
+    '''
 
+    # formatting the day to YYYY-MM-DD
     month = str(value.month)
     day = str(value.day)
     if len(month) < 2:
@@ -75,26 +110,19 @@ def day_validator(value):
         day = "0"+day
     value_as_str = str(value.year)+"-"+str(month)+"-"+str(day)
     today = date.today()
-    # https://stackoverflow.com/questions/14225608/python-how-to-use-regex-in-an-if-statement
-    '''
-    if not re.match(regex, value):
-        raise ValidationError(
-            ('%(value)s not a properly formatted date: please use YYYY-MM-DD'),
-            params={'value':value}
-        )
-    '''
-    #https://www.geeksforgeeks.org/python-program-to-print-current-year-month-and-day/#:~:text=In%20Python%2C%20in%20order%20to%20print%20the%20current,function%20of%20date%20class%20to%20fetch%20todays%20date.
-    #https://izziswift.com/how-do-i-validate-a-date-string-format-in-python/
+    # compare years
     if (int(value_as_str[0:4]) < int(today.year)):
         raise ValidationError(
             ('%(value)s not a valid year: please use this year or an upcoming year'),
             params={'value':value}
         )
+    #compare months
     elif (int(value_as_str[0:4]) == int(today.year)) and (int(value_as_str[5:7])< int(today.month)):
         raise ValidationError(
             ('%(value)s not a valid month: please use a month that has not already passed'),
             params={'value':value}
         )
+    #compare day
     elif (int(value_as_str[5:7]) == int(today.month)) and (int(value_as_str[8:10]) < int(today.day)):
         raise ValidationError(
             ('%(value)s not a valid day: please use a day that has not passed yet'),
@@ -103,20 +131,31 @@ def day_validator(value):
 
 
 def time_validator(value):
-    #regex = '[0-9][0-9]:[0-9][0-9]'
+    '''
+    This function checks to see that the user entered a valid hour and minute for the event
+    '''
+    '''
+        / ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
+        *REFERENCES
+        *Title: Django Model and Form Validation
+        *Author: George Zhang
+        *Date: 8/15/2019
+        *Code version: Python
+        *URL: https://georgexyz.com/django-model-form-validation.html
+        *Software License: BSD-3
+        *Used for: Understanding how to raise validation errors in a function 
+        *
+        '''
+    #format time
     hour = str(value.hour)
     min = str(value.min)[0:2]
-    '''
-    if len(hour) < 2:
-        hour = "0" + hour
-    if len(min) < 2:
-        min = "0" + min
-    '''
+    #check for proper hour input
     if int(hour) < 0 or int(hour) > 23:
         raise ValidationError(
             ('%(value)s not a proper hour: please enter a valid hour'),
             params={'value':value}
         )
+    #check for proper minute input
     elif int(min) < 0 or int(min) > 59:
         raise ValidationError(
             ('%(value)s not a proper minute: please enter a proper minute value'),
@@ -124,6 +163,26 @@ def time_validator(value):
         )
 
 class Event(models.Model):
+    '''
+        / ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** *
+        *REFERENCES
+        *Title: Models
+        *Author: Django
+        *Date: N/A
+        *Code version: Python
+        *URL: https://docs.djangoproject.com/en/3.2/topics/db/models/
+        *Software License: BSD-3
+        *Used for: Creating models
+        *
+        *Title: Form fieldsf
+        *Author: Django
+        *Date: N/A
+        *Code version: Python
+        *URL: https://docs.djangoproject.com/en/3.2/ref/forms/fields/
+        *Software License: BSD-3
+        *Used for: understanding each of the fields
+        *
+        '''
     summary = models.CharField(max_length=200)
     zoom_link = models.URLField(max_length=200, blank=True)
     day = models.DateField(auto_now=False, help_text='YYYY-MM-DD', validators=[day_validator]) #YYYY-MM-DD HH:MM #
