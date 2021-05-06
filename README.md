@@ -39,8 +39,9 @@ This will display any and all upcoming meetings a user has scheduled with potent
 ## Fun Festures
 The aspects of our site we are particularly proud of:  
 
-* Users are given a list of canidates we think would be good before making their final choice (as opposed to seeing every canidate possible, and having to comb throu
-lots of unnecessary results.)
+* Users are given a list of canidates we think would be good before making their final choice (as opposed to seeing every canidate possible, and having to comb through lots of unnecessary results.)
+* Can create callendar event directly within the site, so personal informatoin such as phone numbers don't have to be exposed
+* Users can change their profile at any time for any reason, and a new list of matches will automatically be displayed
 
 ## Authors
 
