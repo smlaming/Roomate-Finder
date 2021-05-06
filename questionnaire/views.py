@@ -81,7 +81,7 @@ def index(request):
                 curr_user.guests = form_answers.guests
                 curr_user.more_introverted_or_extroverted = form_answers.more_introverted_or_extroverted
                 curr_user.ideal_rent = form_answers.ideal_rent
-                curr_user.pfp = form_answers.pfp
+                curr_user.profile_picture = form_answers.profile_picture
                 curr_user.bio = form_answers.bio
                 curr_user.save()
             # redirect to the user's profile page

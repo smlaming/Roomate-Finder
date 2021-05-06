@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('guests', models.CharField(choices=[('1', 'Always love to have guests over'), ('2', 'Usually love to have guests over'), ('3', 'Sometimes love to have guests over'), ('4', 'Never love to have guests over')], max_length=200)),
                 ('more_introverted_or_extroverted', models.CharField(choices=[('1', 'Introverted'), ('2', 'Extroverted'), ('3', 'In the middle')], max_length=200)),
                 ('ideal_rent', models.PositiveBigIntegerField()),
-                ('pfp', models.ImageField(blank=True, null=True, upload_to='')),
+                ('profile_picture', models.ImageField(blank=True, null=True, upload_to='')),
                 ('user', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

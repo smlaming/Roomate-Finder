@@ -59,7 +59,7 @@ class Question(models.Model):
     guests = models.CharField(max_length=200, choices=(('1', 'Always love to have guests over'), ('2', 'Usually love to have guests over'), ('3', 'Sometimes love to have guests over'), ('4', 'Never love to have guests over')))
     more_introverted_or_extroverted = models.CharField(max_length=200, choices=(('1', 'Introverted'), ('2', 'Extroverted'), ('3', 'In the middle')))
     ideal_rent = models.PositiveBigIntegerField(validators=[MinValueValidator(200,message="Please enter a number above 200"), MaxValueValidator(1500, message="Please enter a number below 1500")], help_text='Do not use "$" or "," in your answer')
-    pfp = models.ImageField(null=True, blank=True)
+    profile_picture = models.ImageField(null=True, blank=True)
     bio = models.TextField(null=True)
     # profile_pic = models.ImageField(upload_to=...)
 
@@ -186,8 +186,8 @@ class Event(models.Model):
         '''
     summary = models.CharField(max_length=200)
     zoom_link = models.URLField(max_length=200, blank=True)
-    day = models.DateField(auto_now=False, help_text='YYYY-MM-DD', validators=[day_validator]) #YYYY-MM-DD HH:MM #
-    start_time = models.TimeField(auto_now=False, help_text='HH:MM', validators=[time_validator])
+    day = models.DateField(auto_now=False, help_text='MM/DD/YYYY', validators=[day_validator]) #YYYY-MM-DD HH:MM #
+    start_time = models.TimeField(auto_now=False, help_text='HH:MM AM/PM', validators=[time_validator])
     duration = models.FloatField(default=1.0, choices=(('1','0.25'),('2','0.5'), ('3','0.75'),('4','1.0')))
     inviter = models.EmailField()
     invitee = models.EmailField()

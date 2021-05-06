@@ -53,8 +53,8 @@
                                 <div>
                                     <div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">
 
-                                        {% if us.pfp %}
-                                        <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" width="45" height="45" src="https://dwltestproj1.s3.amazonaws.com/static/{{us.pfp}}">
+                                        {% if us.profile_picture %}
+                                        <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" width="45" height="45" src="https://dwltestproj1.s3.amazonaws.com/static/{{us.profile_picture}}">
                                         {% else %}
                                         <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width="45">
                                         {% endif %}
@@ -157,7 +157,7 @@
                 <h1>
                     Oh no!</h1>
                 <div class="error-details">
-                    It looks like you don't have any mathces yet. Don't fret, new people
+                    It looks like you don't have any matches yet. Don't fret, new people
                 </div>
                 <div class="error-details">
                     are added every day. Come back in awhile to check on new matches!

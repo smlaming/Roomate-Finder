@@ -24,7 +24,7 @@ class QuestionForm(forms.ModelForm):
         '''
     class Meta:
         model = Question
-        fields = ('user', 'name', 'email', 'year', 'wake_up', 'go_to_bed', 'how_clean', 'guests', 'more_introverted_or_extroverted', 'ideal_rent', 'pfp', 'bio')
+        fields = ('user', 'name', 'email', 'year', 'wake_up', 'go_to_bed', 'how_clean', 'guests', 'more_introverted_or_extroverted', 'ideal_rent', 'profile_picture', 'bio')
         exclude = ('user',)
         labels = {
             'name': 'Your Name',
@@ -36,7 +36,7 @@ class QuestionForm(forms.ModelForm):
             'guests': 'How do you feel about having guests over to your dorm/apartment/house?',
             'more_introverted_or_extroverted': 'Are you more introverted or extroverted?',
             'ideal_rent': 'What is your ideal rent payment?',
-            'pfp': 'Profile Picture',
+            'profile_picture': 'Profile Picture',
             'bio': 'Feel free to share more about yourself!'
         }
         #widgets = {
