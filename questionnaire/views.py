@@ -53,6 +53,15 @@ def index(request):
         *Software License: BSD-3
         *Used for: response redirect to profile page
         *
+        *
+        *Title: Django form.errors not showing up in template
+        *Author: Kevin Hernandez
+        *Date: 7/3/18
+        *Code version: Python
+        *URL: https://stackoverflow.com/questions/51146120/django-form-errors-not-showing-up-in-templatee
+        *Software License: N/A
+        *Used for: make error messages show up when you have an invalid input 
+        *
         ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** * /'''
     if request.method == 'POST':
         form = QuestionForm(request.POST, request.FILES)
@@ -86,7 +95,8 @@ def index(request):
                 curr_user.save()
             # redirect to the user's profile page
             return HttpResponseRedirect(reverse('questionnaire:profile', args=(names,)))
-    form = QuestionForm()  # bound form
+    else:
+        form = QuestionForm()  # bound form
     return render(request, 'form.html', {'form': form})
 
 
@@ -340,7 +350,7 @@ def make_event(day, start_time, summary, user_email1, user_email2, duration=1, d
     #format hours and dates properly
     start_hour = str(start_time)[0:2]
     start_min = str(start_time)[2:]
-    end_hour = str(int(start_hour)+duration)
+    end_hour = str(int(start_hour)+1)
     if len(str(end_hour)) < 2: # format hours less than 10 with a 0 before the number
         end_hour = str(0) + end_hour
     #'2015-05-28T09:00:00-07:00' <- format of time/date
@@ -363,7 +373,6 @@ def make_event(day, start_time, summary, user_email1, user_email2, duration=1, d
         'organizer' : {
             'email':user_email1
         },
-        'visibility': 'private',
         'attendees': [
             {'email': user_email1},
             {'email': user_email2},
@@ -376,6 +385,7 @@ def make_event(day, start_time, summary, user_email1, user_email2, duration=1, d
             ],
         },
     }
+    #'visibility': 'private',
     return event
 
 def create_event(request, username):
@@ -418,6 +428,15 @@ def create_event(request, username):
     *Software License: Apache 2.0
     *Used for: inserting the new event and accessing information from it   
     *
+    *
+        *Title: Django form.errors not showing up in template
+        *Author: Kevin Hernandez
+        *Date: 7/3/18
+        *Code version: Python
+        *URL: https://stackoverflow.com/questions/51146120/django-form-errors-not-showing-up-in-templatee
+        *Software License: N/A
+        *Used for: make error messages show up when you have an invalid input 
+        *
         ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** * /'''
     match = User.objects.filter(username=username)
     matches_email = match[0].email
@@ -470,12 +489,15 @@ def create_event(request, username):
 
             #created_rule = service.acl().insert(calendarId=roommate_cal_ID, body=rule).execute()
             # create calendar events
-            e = make_event(form_answers.day, form_answers.start_time, form_answers.summary, curr_user.email, matches_email, form_answers.duration, form_answers.zoom_link)
+            e = make_event(form_answers.day, form_answers.start_time, form_answers.summary, curr_user.email, matches_email, 1, form_answers.zoom_link)
             event = service.events().insert(calendarId=roommate_cal_ID, body=e).execute()
-            event_link = event.get('htmlLink')
-            return HttpResponseRedirect(event_link) #redirect to the calendar url
-            #print('Event created: %s' % (event.get('htmlLink')))
+            #event_link = event.get('htmlLink')
+            names = request.user.username
+            return HttpResponseRedirect(reverse('questionnaire:calendar', args=(names,))) #redirect to the calendar url
+            #print(form.errors)
 
-    form = EventForm()  # bound form
+            #print('Event created: %s' % (event.get('htmlLink')))
+    else:
+        form = EventForm()  # bound form
     return render(request, 'create_event.html', {'form': form})
 

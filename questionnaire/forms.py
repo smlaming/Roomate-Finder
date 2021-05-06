@@ -75,7 +75,7 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ('summary', 'zoom_link', 'day', 'start_time', 'duration', 'inviter', 'invitee')
-        exclude = ('inviter', 'invitee',)
+        exclude = ('inviter', 'invitee','duration')
         #received help from Daniel Zhao in OH
         widgets = {
             'day': forms.DateInput(attrs={'class':'form-control', 'type':'date'}),
@@ -85,6 +85,6 @@ class EventForm(forms.ModelForm):
             'summary': 'Meeting Title',
             'zoom_link': 'Zoom Link for Meeting',
             'day': 'Day of Meeting',
-            'start_time': 'Start Time of Meeting (EST)',
+            'start_time': 'Start Time of Meeting (EST): All meetings are 1 hour long',
             'duration': 'Duration of Meeting in Hours'
         }
