@@ -69,7 +69,7 @@ class Tests(TestCase):
 		form_data = {'name':'test','email':'test@virginia.edu','year':'1','wake_up':'1','go_to_bed':'1','how_clean':'1','guests':'1',
 				 'more_introverted_or_extroverted':'1','ideal_rent':'50','bio':'hi'}
 		form = QuestionForm(data=form_data)
-		self.assertTrue(form.is_valid())
+		self.assertFalse(form.is_valid())
 
 	def test_email(self):
 		form = self.create_form()
