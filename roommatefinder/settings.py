@@ -87,6 +87,7 @@ WSGI_APPLICATION = 'roommatefinder.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+#https://www.enterprisedb.com/postgres-tutorials/how-use-postgresql-django
 
 if 'test' in sys.argv:
     #Configuration for test database
