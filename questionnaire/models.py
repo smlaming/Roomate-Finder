@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 from datetime import date
 
 
+
 # Create your models here.
 
 class Question(models.Model):
@@ -57,7 +58,7 @@ class Question(models.Model):
     how_clean = models.CharField(max_length=200, choices=(('1', 'Very Clean'), ('2', 'Kinda Clean'), ('3', 'Kinda Messy'), ('4', 'Very Messy')))
     guests = models.CharField(max_length=200, choices=(('1', 'Always love to have guests over'), ('2', 'Usually love to have guests over'), ('3', 'Sometimes love to have guests over'), ('4', 'Never love to have guests over')))
     more_introverted_or_extroverted = models.CharField(max_length=200, choices=(('1', 'Introverted'), ('2', 'Extroverted'), ('3', 'In the middle')))
-    ideal_rent = models.PositiveBigIntegerField(validators=[MinValueValidator(200,message="Please enter a number above 200"), MaxValueValidator(1500, message="Please enter a number below 1500")])
+    ideal_rent = models.PositiveBigIntegerField(validators=[MinValueValidator(200,message="Please enter a number above 200"), MaxValueValidator(1500, message="Please enter a number below 1500")], help_text='Do not use "$" or "," in your answer')
     pfp = models.ImageField(null=True, blank=True)
     bio = models.TextField(null=True)
     # profile_pic = models.ImageField(upload_to=...)
@@ -187,7 +188,7 @@ class Event(models.Model):
     zoom_link = models.URLField(max_length=200, blank=True)
     day = models.DateField(auto_now=False, help_text='YYYY-MM-DD', validators=[day_validator]) #YYYY-MM-DD HH:MM #
     start_time = models.TimeField(auto_now=False, help_text='HH:MM', validators=[time_validator])
-    duration = models.IntegerField(default=1)
+    duration = models.FloatField(default=1.0, choices=(('1','0.25'),('2','0.5'), ('3','0.75'),('4','1.0')))
     inviter = models.EmailField()
     invitee = models.EmailField()
 

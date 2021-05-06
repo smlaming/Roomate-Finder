@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'questionnaire.apps.QuestionnaireConfig'
+    'questionnaire.apps.QuestionnaireConfig',
+    'django.forms',
+
 ]
 
 MIDDLEWARE = [
@@ -209,7 +211,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-
+#FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 
 # Activate Django-Heroku.

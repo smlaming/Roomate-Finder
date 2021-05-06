@@ -57,6 +57,7 @@ def index(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST, request.FILES)
         names = request.user.username
+        #print(form)
         if form.is_valid():
             #received help from Sam McBroom in OH to figure out how to resolve overwriting existing entries
             try:
@@ -85,7 +86,6 @@ def index(request):
                 curr_user.save()
             # redirect to the user's profile page
             return HttpResponseRedirect(reverse('questionnaire:profile', args=(names,)))
- 
     form = QuestionForm()  # bound form
     return render(request, 'form.html', {'form': form})
 
