@@ -93,32 +93,49 @@ def match(username1, username2):
     return match_num
 
 def answers(request, username):
-    all_users = Question.objects.all()
-    curr_user = User.objects.get(username=username)
-    matches = []
-    for user in all_users:
-        if user.get_user() != curr_user:
-            match_score = match(curr_user, user.get_user())
-            if match_score >= 4:
-                matches.append(user)
-    context = {
-        "all_users": all_users,
-        "curr_user": curr_user,
-        "matches": matches,
-        'username':username
-    }
+    try:
+        all_users = Question.objects.all()
+        curr_user = User.objects.get(username=username)
+        matches = []
+        for user in all_users:
+            if user.get_user() != curr_user:
+                match_score = match(curr_user, user.get_user())
+                if match_score >= 4:
+                    matches.append(user)
+        context = {
+            "all_users": all_users,
+            "curr_user": curr_user,
+            "matches": matches,
+            'username':username
+        }
+    except:
+        curr_user = User.objects.get(username=username)
+        context = {
+            "all_users": None,
+            "curr_user": curr_user,
+            "matches": [],
+            'username': username
+        }
     #http://www.learningaboutelectronics.com/Articles/How-to-create-dynamic-URLs-in-Django.php 
     return render(request, 'answers.html', context)
 
 
 def user_profile(request, username):
-    user_obj = User.objects.get(username=username)
-    question_obj = Question.objects.get(user=user_obj)
-    context = {
-        "user": user_obj,
-        "responses": question_obj,
-        "username":username
-    }
+    try:
+        user_obj = User.objects.get(username=username)
+        question_obj = Question.objects.get(user=user_obj)
+        context = {
+            "user": user_obj,
+            "responses": question_obj,
+            "username":username
+        }
+    except:
+        user_obj = User.objects.get(username=username)
+        context = {
+            'user': user_obj,
+            'responses': None,
+            'username': username
+        }
 
     return render(request, 'user_profile.html', context)
 
@@ -174,7 +191,14 @@ def calendar(request, username):
         },
         'role' : 'reader'
     }
-    created_rule = service.acl().insert(calendarId=roommate_cal_ID, body=rule).execute()
+    cal_acl = service.acl().list(calendarId=roommate_cal_ID).execute()
+    is_a_reader = False
+    for r in cal_acl['items']:
+        if r['scope']['value'] == request.user.email:
+            is_a_reader = True
+
+    if not is_a_reader:
+        created_rule = service.acl().insert(calendarId=roommate_cal_ID, body=rule).execute()
 
     # Call the Calendar API
     now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
@@ -220,6 +244,7 @@ def make_event(day, start_time, summary, user_email1, user_email2, duration=1, d
         'organizer' : {
             'email':user_email1
         },
+        'visibility': 'private',
         'attendees': [
             {'email': user_email1},
             {'email': user_email2},
