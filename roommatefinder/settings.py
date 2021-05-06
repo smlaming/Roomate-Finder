@@ -185,6 +185,8 @@ STATICFILES_FINDERS = (           'django.contrib.staticfiles.finders.FileSystem
 )
 AWS_DEFAULT_ACL = None
 
+#Google Login Tutorial
+#https://medium.com/@whizzoe/in-5-mins-set-up-google-login-to-sign-up-users-on-django-e71d5c38f5d5
 
 AUTHENTICATION_BACKENDS = (
  'django.contrib.auth.backends.ModelBackend',
@@ -211,6 +213,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 
 # Activate Django-Heroku.
+#CS3240 Resources Page
 try:
     # Configure Django App for Heroku.
     import django_heroku
