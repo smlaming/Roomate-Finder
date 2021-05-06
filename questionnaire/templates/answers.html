@@ -59,12 +59,85 @@
                                         <div class="d-flex flex-row align-items-center feed-text px-2"><img class="rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width="45">
                                         {% endif %}
                                             
-                                            <div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">{{ us.name }}, {{ us.email }}</span></div>
+                                            <div class="d-flex flex-column flex-wrap ml-2"><span class="font-weight-bold">{{ us.name }}</span></div>
                                         </div>
                                         <div class="feed-icon px-2"><i class="fa fa-ellipsis-v text-black-50"></i></div>
                                     </div>
                                 </div>
-                                <div class="p-2 px-3"><span>{{us.bio}}</span></div>
+                                <hr class="my-4">
+                                    <div>Name: <b>{{us.name}}</b></div>
+
+                                    <div>Email: <b>{{us.email}}</b></div>
+
+                                    {% if us.year == '1' %}
+                                     <div>Year:  <b>1st</b></div>
+                                    {% elif us.year == '2' %}
+                                      <div>Year: <b>2nd</b></div>
+                                     {% elif us.year == '3' %}
+                                      <div>Year:  <b>3rd</b></div>
+    {% elif us.year == '4' %}
+        <div>Year:  <b>4th</b></div>
+    {% endif %}
+
+    {% if us.wake_up == '1' %}
+        <div>Wake Up: <b>Before 7am</b></div>
+    {% elif us.wake_up == '2' %}
+        <div>Wake Up: <b>7:00 - 8:30</b></div>
+    {% elif us.wake_up == '3' %}
+    <div>Wake Up: <b>8:30 - 10:00</b></div>
+    {% elif us.wake_up == '4' %}
+        <div>Wake Up: <b>10:00 - 11:30</b></div>
+    {% elif us.wake_up == '5' %}
+        <div>Wake Up: <b>After 11:30</b></div>
+    {% endif %}
+
+    {% if us.go_to_bed == '1' %}
+        <div>Usual Bedtime: <b>Before 9:00</b></div>
+    {% elif us.go_to_bed == '2' %}
+        <div>Usual Bedtime: <b>9:00 - 10:30</b></div>
+    {% elif us.go_to_bed == '3' %}
+        <div>Usual Bedtime: <b>10:30 - 12:00</b></div>
+    {% elif us.go_to_bed == '4' %}
+        <div>Usual Bedtime: <b>12:00 - 1:30</b></div>
+    {% elif us.go_to_bed == '5' %}
+        <div>Usual Bedtime: <b>After 1:30</b></div>
+    {% endif %}
+
+    {% if us.how_clean == '1' %}
+    <div>How Clean: <b>Very Clean</b></div>
+    {% elif us.how_clean == '2' %}
+    <div>How Clean: <b>Kinda Clean</b></div>
+    {% elif us.how_clean == '3' %}
+    <div>How Clean: <b>Kinda Messy</b></div>
+    {% elif us.how_clean == '4' %}
+    <div>How Clean: <b>Very Messy</b></div>
+    {% endif %}
+
+    {% if us.guests == '1' %}
+        <div>Guest Policy: <b>Always love to have guests over</b></div>
+    {% elif us.guests == '2' %}
+        <div>Guest Policy: <b>Usually love to have guests over</b></div>
+    {% elif us.guests == '3' %}
+        <div>Guest Policy: <b>Sometimes love to have guests over</b></div>
+    {% elif us.guests == '4' %}
+        <div>Guest Policy: <b>Never love to have guests over</b></div>
+    {% endif %}
+
+    {% if us.more_introverted_or_extroverted == '1' %}
+        <div>Personality: <b>Introverted</b></div>
+    {% elif us.more_introverted_or_extroverted == '2' %}
+        <div>Personality: <b>Extroverted</b></div>
+    {% elif us.more_introverted_or_extroverted == '3' %}
+        <div>Personality: <b>In the middle</b></div>
+    {% endif %}
+
+    <div>Ideal Rent: <b>${{us.ideal_rent}}</b></div>
+
+    {% if us.bio %}
+    <div>Bio: <b>{{us.bio}}</b></div>
+    {% else %}
+    <div>No bio available</div>
+    {% endif %}
                                 <button type="button" class="btn-sm">
                                     <a href="{% url 'questionnaire:createevent' us.user %}">Make a calendar event with your match!</a>
                                 </button>
@@ -77,7 +150,22 @@
             </div>
         </ul>
     {% else %}
-    <p>No matches available at this time.</p>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template" style="padding: 40px 15px;text-align: center;margin-top: 80px;">
+                <h1>
+                    Oh no!</h1>
+                <div class="error-details">
+                    It looks like you don't have any mathces yet. Don't fret, new people
+                </div>
+                <div class="error-details">
+                    are added every day. Come back in awhile to check on new matches!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     {% endif %}
 </head>
 

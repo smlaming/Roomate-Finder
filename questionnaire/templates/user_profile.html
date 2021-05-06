@@ -33,18 +33,26 @@
         </div>
     </nav>
 
-<div class="jumbotron text-center" style="margin-top: 58px; background-color: #E3F0F4;">
+<div class="jumbotron text-center" style="margin-top: 58px; background-color: white;">
     <meta charset="UTF-8">
     <title>Profile</title>
     {% if responses %}
     <h4 class="mb-3">Your Profile</h4>
-    <p class="lead">If something here is not correct, re-fillout the questionnaire.</p>
+    <p class="lead">If something here is not correct, please re-fillout the questionnaire.</p>
     {% else %}
     <h2>Please submit the roommate questionnaire!</h2>
     {% endif %}
 
     {% if responses %}
+    
     <hr class="my-4">
+    
+    {% if responses.pfp %}
+    <img class="rounded-circle" width="45" height="45" src="https://dwltestproj1.s3.amazonaws.com/static/{{responses.pfp}}">
+    {% else %}
+    <img class="rounded-circle" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" width="45">
+    {% endif %}
+
     <li>Name: <b>{{responses.name}}</b></li>
 
     <li>Email: <b>{{responses.email}}</b></li>

@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-88138$o^)l*8wwx08p^m%nn3-issy_35sm&6iwub24))2bcsxv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['roommate-finder-a-22.herokuapp.com']
+#ALLOWED_HOSTS = ['roommate-finder-a-22.herokuapp.com']
 
 #Turn to False when running locally
 SECURE_SSL_REDIRECT = False
@@ -185,6 +185,8 @@ STATICFILES_FINDERS = (           'django.contrib.staticfiles.finders.FileSystem
 )
 AWS_DEFAULT_ACL = None
 
+#Google Login Tutorial
+#https://medium.com/@whizzoe/in-5-mins-set-up-google-login-to-sign-up-users-on-django-e71d5c38f5d5
 
 AUTHENTICATION_BACKENDS = (
  'django.contrib.auth.backends.ModelBackend',
@@ -211,6 +213,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 
 # Activate Django-Heroku.
+#CS3240 Resources Page
 try:
     # Configure Django App for Heroku.
     import django_heroku

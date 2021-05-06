@@ -38,9 +38,11 @@
     <p>This is your calendar</p>
     {% if events %}
     <p>Upcoming events:</p>
-    <ul>
+    <ul class="text-center">
         {% for event in events %}
-        <li>{{ event.summary }} at {{ event.start.dateTime }} at {{ event.htmlLink }}</li>
+        <li> <a class="font-weight-bold">{{ event.summary }}</a> at {{ event.start.dateTime }} <button type="button" class="btn-sm">
+            <a href="{{event.htmlLink}}">Event Link</a>
+        </button></li>
     {% endfor %}
     </ul>
     {%else%}
