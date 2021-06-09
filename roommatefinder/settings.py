@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-88138$o^)l*8wwx08p^m%nn3-issy_35sm&6iwub24))2bcsxv'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -164,8 +164,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AWS_LOCATION = 'static'
-AWS_ACCESS_KEY_ID ='AKIAXJXOMLUFSBTRXY5C'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID =''
+AWS_SECRET_ACCESS_KEY = ''
 AWS_STORAGE_BUCKET_NAME ='dwltestproj1'
 AWS_S3_CUSTOM_DOMAIN='%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
