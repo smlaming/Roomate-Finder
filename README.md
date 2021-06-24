@@ -1,5 +1,5 @@
 # Roommate Finder
-UVA CS 3240, Group A-22, Spring 2021
+UVA CS 3240, Spring 2021
 
 ## Description
 
