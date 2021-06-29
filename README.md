@@ -1,14 +1,13 @@
 # Roommate Finder
 UVA CS 3240, Spring 2021
+Hosted on Heroku at https://roommate-finder-a-22.herokuapp.com/ (Note, site is no longer maintained and some API keys may be expired)
 
 ## Description
 
-  Hello! Thank you for looking at our Django project. We made a site to faciliate the stressful proccess of finding an undergrad roommate at the University of Virginia.
-Our site first asks some basic information about you, including some of the lifestyle habits, any compares you to other participants. If we think you would be a good 
-match based on our algorithm, we tell both parties. Users have a chance to review every match, and if interested reach out to them!  
+ This site was built to help faciliate the stressful proccess of finding an undergrad roommate at the University of Virginia.
+The site first asks some basic information about you, including some of the lifestyle habits, any compares you to other participants. If we think you would be a good match based on our algorithm, we tell both parties. Users have a chance to review every match, and if interested reach out to them!  
 
-  Upon entering the site, users should first go to the "Roomate Questionnaire" tab and fill out the questionnaire there.  Once completed, you will be directed to your a profile page where you can review your information. If something is incorrect or you
-change your mind, don't panic! Anything can be changed and your potential matches witll update to reflect this.  
+  Upon entering the site, users should first go to the "Roomate Questionnaire" tab and fill out the questionnaire there.  Once completed, you will be directed to your a profile page where you can review your information. If something is incorrect or you change your mind, don't panic! Anything can be changed and your potential matches witll update to reflect this.  
 
 Below is a short description of every page on the site
 
@@ -45,7 +44,7 @@ The aspects of our site we are particularly proud of:
 
 ## Authors
 
-A-22 Group member's names and computing ID's
+Group member's names and UVA computing ID's
 
 * Caroline Britt (crb8ua)
 * Callie Hartzog (cah6rxg)
